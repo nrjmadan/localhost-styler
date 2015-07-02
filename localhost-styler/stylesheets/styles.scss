@@ -1,0 +1,246 @@
+@import "icons.css";
+
+$base-color: #fdfdfd;
+$text-color: #2B2B2B; // #606060;
+
+$color-black: #2B2B2B;
+$color-blue: #4475C4;
+$color-green: #8A9B1F;
+$color-yellow: #FFB414;
+$color-red: #F7161D;
+
+
+html,
+body {
+	min-height: 100%;
+	min-width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: $base-color;
+	color: $text-color;
+	font-family: "Helvetica Neue",Arial, monospace;
+	font-size: 18px;
+	line-height: 22px;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+$size-xs-max: 767px;
+$size-sm-min: ($size-xs-max+1); $size-sm-max: 991px;
+$size-md-min: ($size-sm-max+1); $size-md-max: 1199px;
+$size-lg-min: ($size-md-max+1);
+
+.path,
+.files,
+.stats {
+	padding: 0 15px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	@media (min-width: $size-sm-min) {
+		width: 750px;
+	}
+	@media (min-width: $size-md-min) {
+		width: 970px;
+	}
+	@media (min-width: $size-lg-min) {
+		width: 1170px;
+	}
+}
+
+a {
+	color: $text-color;
+	text-decoration: none;
+	border: 1px solid transparent;
+	
+	&:focus {
+		outline: none;
+		border-radius: 4px;
+		border: 1px solid #888;
+	}
+	&:active {
+		color: $color-blue;
+	}
+	&:visited {
+		color: $color-black;
+	}
+	&:hover,
+	&:focus {
+		color: $color-black;
+		text-decoration: none;
+	}
+	&.active{
+		pointer-events: none;
+		cursor: default;
+		color: $color-blue;
+	}
+}
+
+.icon-stack {
+	position: relative;
+	display: inline-block;
+	line-height: 1em;
+	
+	.icon {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		font-size: inherit;
+	}
+	
+	.icon:first-child {
+		position: relative;	// Accomodate width naturally
+	}
+}
+
+.path {
+	margin-top: 20px;
+	
+	ol {
+		padding: 0px;
+		list-style-type: none;
+		margin: 0;
+		overflow: hidden;
+		border: 1px solid #888;
+		border-radius: 4px;
+		position: relative;
+		
+		li {
+			display: inline-block;
+			padding: 9px 0px;
+			margin: 0;
+			float: left;
+			
+			&:last-child {
+				span.icon-path-arrow {
+					display: none;
+				}
+			}
+			
+			a {
+				color: $color-blue;
+				padding: 6px 10px;
+				margin: 0 2px;
+				border: 1px solid transparent;
+				border-radius: 4px;
+				
+				
+				&:visited {
+					color: $color-blue;
+				}
+				
+				&.active{
+					pointer-events: none;
+					cursor: default;
+					color: $color-black;
+				}
+				
+				&:hover {
+					color: #444;
+				}
+				
+				&:focus {
+					border-color: #888;
+				}
+				
+			}
+			
+			&::after {
+				content: "";
+				display: block;
+				position: absolute;
+				width: 100%;
+				margin-top: 9px;
+				border-bottom: 1px solid #888;
+			}
+			
+			&.home span.icon-cloud {
+				color: white;
+				text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+				padding: 10px 12px 11px;
+				background-color: $color-blue; // #0077B5;
+				box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+				border-top-left-radius: 3px;
+			}
+		}
+	}
+}
+
+.files {
+	ul {
+		padding-left: 0;
+		list-style-type: none;
+		
+		li {
+			margin: 0px;
+			padding: 0;
+			padding-left: 5px;
+			position: relative;
+			
+			&:nth-child(odd) {
+				background-color: #fafafa;
+			}
+			
+			span.icon {
+				font-size: 16px;
+			}
+			
+			a {
+				padding: 2px 4px;
+				display: inline-block;
+				min-width: 28px;
+				&.highlight {
+					color: $color-red ; // #B5062E;
+					
+					&:visited {
+						color: $color-red;
+					}
+				}
+			}
+		}
+	}
+}
+
+.stats {
+	ul {
+		padding-left: 0;
+		list-style-type: none;
+		border-top: 1px solid #888;
+		text-align: center;
+		margin-bottom: 0;
+		
+		li {
+			display: inline-block;
+			padding: 9px 0px;
+			margin: 0 8px;
+		}
+	}
+}
+
+$icon-colors: (
+	'directory':		$color-blue, // #71ACD2,
+	'empty-directory':	$color-blue,
+	'up':				#FFFFFF,
+	'file':				$color-yellow, // #547F99,
+	'cloud':			$color-blue, //#1581EA,
+	'home':				$color-green,
+	'index':			$color-red,	//#FF003C,
+);
+
+@each $icon in map_keys($icon-colors) {
+	.icon-#{$icon}.color-icon {
+		color: map_get($icon-colors, $icon);
+	}
+}
+.icon.disabled {
+	color: #FFF;
+}
