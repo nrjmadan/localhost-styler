@@ -1,7 +1,11 @@
 <?php
-#================================
+
+# Enable/disable php warning messages.
+ini_set('display_errors', 'On');
+
+# ================================
 # OPTIONS
-#================================
+# ================================
 
 # Hide some files. (true/false)
 	$hide_files = true;
@@ -44,7 +48,7 @@
 # path of localhost-styler (assets folder) relative to primary file. (Note: assets outside localhost root folder cannot be accessed.)
 	$assets_path = "";
 
-#================================
+# ================================
 
 # Don't display ever
 	$forbidden = array(
@@ -54,7 +58,12 @@
 
 	$server_address = $_SERVER['HTTP_HOST'];
 	$doc_root = $_SERVER['DOCUMENT_ROOT'];
-	$dir_rel_address = $_GET['address'];
+	if (isset($_GET['address'])) {
+		$dir_rel_address = $_GET['address'];
+	}
+	else {
+		$dir_rel_address = "";
+	}
 	
 # IMPORTANT SECURITY CHECK. Disables access to path outside localhost root.
 # Resolve path to real path.
@@ -79,7 +88,7 @@
 	$is_home = $dir_rel_address ? false : true;
 	$dir_full_address = $is_home ? $doc_root : $doc_root.'/'.$dir_rel_address ;
 	$files = scandir($dir_full_address);
-	$is_directory = flase;	# if read file is or file.
+	$is_directory = false;	# if read file is or file.
 	
 # Remove forbidden files from $files
 	$temp = array_diff($files, $forbidden);
@@ -258,7 +267,7 @@
 										}
 									?>"></span>
 									<?php
-										if ($detect_index_file):
+										if ($is_directory && $detect_index_file):
 											if ( index_file_present($files[$i]) ):
 												if ( $use_index_file ):?>
 													<span class="icon icon-index color-icon"></span>
