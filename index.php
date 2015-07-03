@@ -27,6 +27,9 @@ ini_set('display_errors', 'On');
 		'index.php',
 	);
 
+# Scan sub-directories for index files. Will show an icon if index file is present in the directory.
+	$detect_index_file = true;
+		
 # Automatically use index file if present in sub-directory. (true/false)
 	$use_index_file = true;
 
@@ -37,9 +40,6 @@ ini_set('display_errors', 'On');
 		'index.htm',
 		'default.htm',
 	);
-	
-# Scan sub-directories for index files. Will show an icon if index file is present in the directory.
-	$detect_index_file = true;
 
 # localhost-styler index file name (default = index.php)
 	$primary_filename = 'index.php';
@@ -99,7 +99,7 @@ ini_set('display_errors', 'On');
 		$files = array_diff( $temp, array('') );
 	}
 	
-# Remove primary file and assets folder from files list
+# Remove primary file from files list
 	if ($is_home) {
 		$key = array_search( $primary_filename, $files );
 		if($key !== FALSE){
