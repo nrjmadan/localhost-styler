@@ -23,13 +23,12 @@ ini_set('display_errors', 'On');
 
 # Special files/folders to be highlighted
 	$highlight = array(
-		'iincore.com',
 		'index.html',
 		'index.php',
 	);
 
 # Automatically use index file if present in sub-directory. (true/false)
-	$use_index_file = false;
+	$use_index_file = true;
 
 # If these files are present in the sub-directory, localhost-styler will transfer control.
 	$site_files = array(
@@ -236,7 +235,7 @@ ini_set('display_errors', 'On');
 					echo generate_breadcrumb_path($count-2);
 				 ?> >..</a></li>
 			<?php
-				if ( $files == null ): ?>
+				if ( empty($files) ): ?>
 					<li>
 						<span class="icon-stack">
 							<span class="icon-empty-directory color-icon" style="visibility: hidden;"></span>
@@ -295,8 +294,10 @@ ini_set('display_errors', 'On');
 	
 	<div class="stats">
 		<ul>
-			<li><?php echo $no_of_directories; ?> <span class="stack-icon"><span class="icon icon-directory color-icon"></span></span></li>
-			<li><?php echo $no_of_files; ?> <span class="stack-icon"><span class="icon icon-file color-icon"></span></span></li>
+			<?php if (!empty($files)): ?>
+				<li><?php echo $no_of_directories; ?> <span class="stack-icon"><span class="icon icon-directory color-icon"></span></span></li>
+				<li><?php echo $no_of_files; ?> <span class="stack-icon"><span class="icon icon-file color-icon"></span></span></li>
+			<?php endif; ?>
 		</ul>
 	</div>
 
